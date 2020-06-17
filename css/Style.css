@@ -1,0 +1,146 @@
+/* Code By Saleh Ibne Omar */
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: rgba(116, 125, 140, 0.7);
+}
+
+.saleh {
+    /* main contain majhe anar jonne ai class 2nd div e ai class ase */
+    margin: 0 auto;
+}
+
+.calcontainer {
+    /* ai class ta form er modde kora hoice form er size tik orar jonne */
+    
+    margin-left: 0;
+    width: 316px;
+}
+
+#panel {
+    /* calculator er display er jonne ai id kora hoie */
+    text-align: right;
+    width: 274px;
+    height: 80px;
+    font-size: 26px;
+    background-color: white;
+}
+
+#panel:hover {
+    /* calculator er display er jonne ai id kora hoie */
+    cursor: col-resize;
+}
+
+.bttn {
+    /* button gulo ke style korar jonne ai class */
+    margin-bottom: 8px;
+    margin-left: 5px;
+    width: 59px;
+    height: 45px;
+    font-size: 22px;
+}
+
+.bttne {
+    /* last er 2 ta button  ke style korar jonne ai class */
+    width: 120px;
+    margin-top: 10px;
+    margin-right: 11px;
+}
+
+/* [START] styles for sales report page*/
+   .input-group-text {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-align: center;
+        align-items: center;
+        padding: 1rem 1rem;
+        margin-bottom: 0;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #495057;
+        text-align: center;
+        white-space: nowrap;
+        background-color: #e9ecef;
+        border: 1px solid #ced4da;
+        border-radius: .25rem;
+        border-top-right-radius: 0.25rem;
+        border-bottom-right-radius: 0.25rem;
+    }
+    .input-group {
+        position: relative;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        -ms-flex-align: stretch;
+        align-items: stretch;
+        width: 100%;
+    }
+    .input-group-append, .input-group-prepend {
+        display: -ms-flexbox;
+        display: flex;
+    }
+    .input-group > .custom-file, .input-group > .custom-select, .input-group > .form-control, .input-group > .form-control-plaintext {
+        position: relative;
+        -ms-flex: 1 1 0%;
+        flex: 1 1 0%;
+        min-width: 0;
+        margin-bottom: 0;
+    }
+
+/*infor box styles*/
+    .bg-info, .bg-success {
+    color: #fff !important;
+    }
+    .bg-info {
+        background-color: #17a2b8 !important;
+    }
+    .bg-success {
+        background-color: #28a745 !important;
+    }
+    .info-box {
+        box-shadow: 0 0 1px rgba(0,0,0,.125),0 1px 3px rgba(0,0,0,.2);
+        border-radius: .25rem;
+        background: #fff;
+            background-color: rgb(255, 255, 255);
+        display: -ms-flexbox;
+        display: flex;
+        margin-bottom: 1rem;
+        min-height: 80px;
+        padding: .5rem;
+        position: relative;
+    }
+    .info-box .info-box-icon {
+        border-radius: .25rem;
+        -ms-flex-align: center;
+        align-items: center;
+        display: -ms-flexbox;
+        display: flex;
+        /*font-size: 1.875rem;*/
+        -ms-flex-pack: center;
+        justify-content: center;
+        text-align: center;
+        width: 70px;
+        background: none !important;
+    }
+    .info-box .info-box-content {
+        -ms-flex: 1;
+        flex: 1;
+        padding: 15px 10px;
+        margin-left: 0px !important;
+    }
+    .info-box .info-box-text, .info-box .progress-description {
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .info-box .info-box-number {
+        display: block;
+        font-weight: 700;
+    }
+
+
+/* [END] styles for sales report page*/
