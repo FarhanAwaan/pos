@@ -114,6 +114,20 @@
             </li>
             <li class="treeview">
                 <a href="#">
+            <i class="fas fa-shopping-bag"></i> <span>&nbsp;Returns</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+                <ul class="treeview-menu">
+                    <li><a href="return.php"><i class="far fa-circle"></i>&nbsp;&nbsp; Returns listings</a></li>
+                    <li><a href="addreturns.php"><i class="far fa-circle"></i>&nbsp;&nbsp; Return to Vendor</a></li>
+                    <li><a href="addreturns.php"><i class="far fa-circle"></i>&nbsp;&nbsp; Return from Customer</a></li>
+                    <li><a href="viewreturnsreports.php"><i class="far fa-circle"></i>&nbsp;&nbsp; View Return Report</a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
             <i class="fas fa-balance-scale"></i> <span>&nbsp;Expenditures</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
