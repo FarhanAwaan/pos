@@ -27,7 +27,8 @@ if(isset($_POST['action_id']))
      $row = mysqli_fetch_assoc($result);
         
 			$returnid = $row['returnid'];
-			$returnitemid = $row['returnitemid'];
+      $returnitemid = $row['returnitemid'];
+      $item_no = $row['item_no'];
 			$title = $row['title'];
 			$cid = $row['cid'];
 			$vid = $row['vid'];
@@ -129,15 +130,16 @@ if(isset($_POST['action_id']))
               <div class="box-body">
                 <div class="form-group">
                   <label for="exampleInputPassword1"> Title</label>
-                  <input type="text" class="form-control" name="pending" value="<?php echo $title;?>"  id="exampleInputPassword1" required placeholder="Title">
+                  <input type="text" class="form-control" name="title" value="<?php echo $title;?>"  id="exampleInputPassword1" required placeholder="Title">
                 </div>
                 <div class="form-group">
-                  <input type="hidden" name="action_id" value="<?php echo $returnid;?>" >
+                  <input type="hidden" name="action_id" value="<?php echo $returnitemid;?>" />
+                  <input type="hidden" name="action_id" value="<?php echo $returnid;?>" />
                 </div>
               </div>
               <div class="box-body">
 			  			 <div class="form-group">
-                  <label for="exampleInputEmail1">Item</label>
+                  <label for="exampleInputEmail1">Items</label>
                   <select required name="returnitemid" class="selectpicker">
                     <?php
                     
@@ -174,8 +176,8 @@ if(isset($_POST['action_id']))
                                                     {
                                                     $customerid = $row['id'];
                                                     $name = $row['name'];
-                                            ?>
-                    <option value="<?php echo $cid; ?>" <?php if($cid==$customerid) echo 'selected="selected"'; ?>><?php echo $name; ?></option>
+                                                                           ?>
+                    <option value="<?php echo $customerid; ?>" <?php if($cid==$customerid) echo 'selected="selected"'; ?>><?php echo $name; ?></option>
                     <?php }} ?>
                   </select>
                 </div>
@@ -193,7 +195,7 @@ if(isset($_POST['action_id']))
                                                     $vendorid = $row['id'];
                                                     $name = $row['name'];
                                             ?>
-                    <option value="<?php echo $id; ?>" <?php if($vid==$vendorid) echo 'selected="selected"'; ?>><?php echo $name; ?></option>
+                    <option value="<?php echo $vendorid; ?>" <?php if($vid==$vendorid) echo 'selected="selected"'; ?>><?php echo $name; ?></option>
                     <?php }} ?>
                   </select>
                 </div>
@@ -211,16 +213,20 @@ if(isset($_POST['action_id']))
 					}
 				}</script>
                 <div class="form-group">
-                  <label for="exampleInputPassword1">Old Stock</label>
-                  <input type="number" class="form-control" value="<?php echo $ostock ;?>" readonly name="qty" required id="wire_used" placeholder="Quantaty">
+                  <label for="exampleInputPassword1">Current Stock</label>
+                  <input type="number" class="form-control" value="<?php echo $ostock ;?>"  name="qty" required id="wire_used" placeholder="Quantaty">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Returned Item Number</label>
+                  <input type="number" class="form-control" value="<?php echo $item_no ;?>" name="item_no" required id="item_no" placeholder="Item Number" />
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Old Stock Cost Price <small>(per product)</small></label>
-                  <input type="number" class="form-control" value="<?php echo $os_cprice ;?>" name="cprice" required id="wire_used" placeholder="Cost Price Per Item">
+                  <input type="number" class="form-control" value="<?php echo $os_cprice ;?>" name="cprice" readonly required id="wire_used" placeholder="Cost Price Per Item">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Old Stock Retail product</label>
-                  <input type="number" class="form-control" name="rprice" value="<?php echo $os_rprice ;?>" required id="wire_used" placeholder="Retail Price Per Item">
+                  <input type="number" class="form-control" name="rprice" value="<?php echo $os_rprice ;?>" readonly required id="wire_used" placeholder="Retail Price Per Item">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">New Stock</label>
@@ -228,11 +234,11 @@ if(isset($_POST['action_id']))
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">New Stock Cost Price <small>(per product)</small></label>
-                  <input type="number" class="form-control" name="ncprice" value="<?php echo $ns_cprice ;?>" required id="wire_used" placeholder="Cost Price Per Item">
+                  <input type="number" class="form-control" readonly name="ncprice" value="<?php echo $ns_cprice ;?>" required id="wire_used" placeholder="Cost Price Per Item">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">New Stock Retail product</label>
-                  <input type="number" class="form-control" name="nrprice" value="<?php echo $ns_rprice ;?>" required id="wire_used" placeholder="Retail Price Per Item">
+                  <input type="number" class="form-control" readonly name="nrprice" value="<?php echo $ns_rprice ;?>" required id="wire_used" placeholder="Retail Price Per Item">
                 </div>
               </div>
               <div class="box-footer">

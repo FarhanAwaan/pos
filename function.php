@@ -760,26 +760,56 @@ if(isset($_POST['signin']))
       
     }
      
-
-    if(isset($_POST['add_returns']))
-    {
     
+    if(isset($_POST['add_returns']) || isset($_POST['edit_returns']))
+    {
+      
 /*	 nrprice ncprice nqty rprice cprice qty vendor customer Title
-*/	 
-        $id = $_POST['action_id'];
-        $qty = $_POST['qty'];
-        $cprice = $_POST['cprice'];
-        $cprice = $_POST['nrprice'];
-        $cprice = $_POST['ncprice'];
-        $cprice = $_POST['nqty'];
-        $cprice = $_POST['rprice'];
-        $rprice = $_POST['cprice'];
-        $rprice = $_POST['vendor'];
-        $rprice = $_POST['customer'];
-        $rprice = $_POST['Title'];		 		 
+*/	
+
+// title returnitemid customer vendor qty(old stock) cprice(old stock) nqty(New Stock) ncprice(New Stock Cost Price)
+// nrprice(New Stock Retail product)
+
+
+        if(isset($_POST['edit_returns'])){
+            $id = $_POST['action_id'];
+        
+        }
+        
+        $title= isset($_POST['title'])?$_POST['title']:'';
+        $itemid= isset($_POST['returnitemid'])?$_POST['returnitemid']:0;
+        $item_no= isset($_POST['item_no'])?$_POST['item_no']:0;
+        
+        $cid= isset($_POST['customer'])?$_POST['customer']:0;
+        $vid= isset($_POST['vendor'])?$_POST['vendor']:0;
+        $returnee= isset($_POST['returnee'])?$_POST['returnee']:0;      // returnee who returned the item 
+        $qty = isset($_POST['qty'])?$_POST['qty']:0;                    //(old stock quantity)
+        $cprice = isset($_POST['cprice'])?$_POST['cprice']:0;           //(old stock cost price) 
+        $cprice = isset($_POST['nrprice'])?$_POST['nrprice']:0;         //(New Stock Retail product)
+        $cprice = isset($_POST['ncprice'])?$_POST['ncprice']:0;         //ncprice(New Stock Cost Price)
+        $cprice = isset($_POST['nqty'])?$_POST['nqty']:0;              // (New Stock) quantity
+        $cprice = isset($_POST['rprice'])?$_POST['rprice']:0;           //retail price(old stock)
+        $rprice = isset($_POST['cprice'])?$_POST['cprice']:0;           //cost price(old stock)
+      	 		 
         $date = date('d-m-Y');
        
-        $sql1 = "select * from items where id = '$id'";
+        if(isset($_POST['edit_returns'])){
+            $sql2="UPDATE `returns` SET `title`='$title',`returnitemid`='$itemid',
+                    `cid`='$cid',`vid`='$vid',`returnee`='$returnee' ,`item_no`='$item_no' ,`qty`='$qty' WHERE `id` ='$id'";
+            $result = $conn->query($sql);
+        
+        }else{
+              $sql = "INSERT INTO `returns` (`returnid`, `title`, `returnitemid`,`item_no`, `cid`, `vid`, `returnee`, 
+                                    `created_date`, `updated_date`) 
+                                VALUES ('".$title."', '".$itemid."','".$item_no."', '".$cid."', '".$vid."',
+                                        '".$returnee."', current_timestamp(), current_timestamp());";
+                $result = $conn->query($sql);
+        
+            }
+
+      //  print_r($_POST);
+      //  exit;
+        $sql1 = "select * from items where id = '$itemid'";
         $result1 = $conn->query($sql1);
         if($result1->num_rows > 0)
         {
@@ -795,40 +825,49 @@ if(isset($_POST['signin']))
            
             if($ostock == 0)
             {
-                $sql2="UPDATE `items` SET `old_stock`='$qty',`old_stoct_price`='$rprice',`total_stock`='$qty',`old_stock_cprice`='$cprice' WHERE `id` ='$id'";
+                $sql2="UPDATE `items` SET `old_stock`='$qty',`old_stoct_price`='$rprice',`total_stock`='$qty',`old_stock_cprice`='$cprice' WHERE `id` ='$itemid'";
+                $result3 = $conn->query($sql2);
             }
             else if($os_cprice == $cprice && $os_rprice == $rprice)
             {
                 $sstock=($ostock+$qty);
-                $sql2="UPDATE `items` SET `old_stock`='$sstock',`old_stoct_price`='$rprice',`total_stock`=total_stock+$qty,`old_stock_cprice`='$cprice' WHERE `id` ='$id'";
-            }
+                  $sql2="UPDATE `items` SET `old_stock`='$sstock',`old_stoct_price`='$rprice',`total_stock`=total_stock+$qty,`old_stock_cprice`='$cprice' WHERE `id` ='$itemid'";
+                $result3 = $conn->query($sql2);            }
             else if($nstock == 0)
             {
-                $sql2="UPDATE `items` SET `new_stock`='$qty',`new_stoct_price`='$rprice',`total_stock`=total_stock+$qty,`new_stock_cprice`='$cprice' WHERE `id` ='$id'";
+                  $sql2="UPDATE `items` SET `new_stock`='$qty',`new_stoct_price`='$rprice',`total_stock`=total_stock+$qty,`new_stock_cprice`='$cprice' WHERE `id` ='$itemid'";
+                $result3 = $conn->query($sql2);
             }
             else if($ns_cprice == $cprice && $ns_rprice == $rprice)
             {
                 $sstock=($nstock+$qty);
-                $sql2="UPDATE `items` SET `new_stock`='$sstock',`new_stoct_price`='$rprice',`total_stock`=total_stock+$qty,`new_stock_cprice`='$cprice' WHERE `id` ='$id'";
+                  $sql2="UPDATE `items` SET `new_stock`='$sstock',`new_stoct_price`='$rprice',`total_stock`=total_stock+$qty,`new_stock_cprice`='$cprice' WHERE `id` ='$itemid'";
+                $result3 = $conn->query($sql2);
             }
             else
             {
-                $sql2="UPDATE `items` SET `total_stock`=total_stock+$qty WHERE `id` ='$id'";
-                $sql3="INSERT INTO `stock`(`item_id`, `qty`, `cprice`, `rprice`, `date`) VALUES ('$id','$qty','$cprice','$rprice','$date')";
-               
-             }
-           $result3 = $conn->query($sql3);
+                   $sql2="UPDATE `items` SET `total_stock`=total_stock+$qty WHERE `id` ='$itemid'";
+                $result2 = $conn->query($sql2);
+                  $sql3="INSERT INTO `stock`(`item_id`, `qty`, `cprice`, `rprice`, `date`) VALUES ('$itemid','$qty','$cprice','$rprice','$date')";
+                $result3 = $conn->query($sql3); 
+            }
+            
+         
              if($result3>0)
            {
                echo "<script>window.open('return.php?success=Stock Maintained Successfully.','_self');</script>";
            }
            else
            {
-               echo "<script>window.open('viewcustomer.php?error=An Unknown Error Occurred!','_self');</script>";
+               echo "<script>window.open('return.php?error=An Unknown Error Occurred!','_self');</script>";
            }			
            
            }
         }
+
+
+
+
     // if(isset($_POST['addstock']))
     // {
     //     $id = $_POST['action_id'];

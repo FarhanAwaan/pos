@@ -87,12 +87,12 @@ include('connection.php');?>
               <div class="box-body">
                 <div class="form-group">
                   <label for="exampleInputPassword1"> Title</label>
-                  <input type="text" class="form-control" name="Title" value=""  id="exampleInputPassword1" required placeholder="Title">
+                  <input type="text" class="form-control" name="title" value=""  id="exampleInputPassword1" required placeholder="Title">
                 </div>
               </div>
               <div class="box-body">
 			  	<div class="form-group">
-                  <label for="exampleInputEmail1">Item</label>
+                  <label for="exampleInputEmail1">Items</label>
                   <select required name="returnitemid" id="itemid" class="selectpicker" onBlur="var item = $('#itemid').val();populatefields(item)">
                     <?php
                     
@@ -102,10 +102,10 @@ include('connection.php');?>
                                                 {
                                                     while($row = mysqli_fetch_assoc($result))
                                                     {
-                                                    $customerid = $row['id'];
+                                                    $itemid = $row['id'];
                                                     $name = $row['name'];
                                             ?>
-                    <option value="<?php echo $customerid; ?>" ><?php echo $name; ?></option>
+                    <option value="<?php echo $itemid; ?>" ><?php echo $name; ?></option>
                     <?php }} ?>
                   </select>
                 </div>
@@ -160,11 +160,11 @@ include('connection.php');?>
                                                     $customerid = $row['id'];
                                                     $name = $row['name'];
                                             ?>
-                    <option value="<?php echo $cid; ?>" ><?php echo $name; ?></option>
+                    <option value="<?php echo $customerid; ?>" ><?php echo $name; ?></option>
                     <?php }} ?>
                   </select>
                 </div>
-	
+                
                 <div class="form-group" id="vendor" style="display:none">
                   <label for="exampleInputEmail1">Vendor</label>
                   <select required name="vendor" class="selectpicker">
@@ -179,7 +179,7 @@ include('connection.php');?>
                                                     $vendorid = $row['id'];
                                                     $name = $row['name'];
                                             ?>
-                    <option value="<?php echo $id; ?>"><?php echo $name; ?></option>
+                    <option value="<?php echo $vendorid; ?>"><?php echo $name; ?></option>
                     <?php }} ?>
                   </select>
                 </div>
@@ -196,19 +196,24 @@ include('connection.php');?>
 						$('#customer').hide();
 					}
 				}</script>
-				
-
+				 
+        <!-- title returnitemid customer vendor qty(old stock) cprice(old stock) nqty(New Stock) ncprice(New Stock Cost Price)
+        nrprice(New Stock Retail product) -->
                 <div class="form-group">
-                  <label for="exampleInputPassword1">Old Stock</label>
-                  <input type="number" class="form-control" value="<?php  if(isset($_POST['populate']) && $_POST['populate']=='populate'){ echo @$array['ostock'] ;}?>" readonly name="qty" required id="ostock" placeholder="Quantaty">
+                  <label for="exampleInputPassword1">Current Stock</label>
+                  <input type="number" class="form-control" value="<?php  if(isset($_POST['populate']) && $_POST['populate']=='populate'){ echo @$array['ostock'] ;}?>" name="qty" required id="ostock" placeholder="Quantaty">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Returned Item Number</label>
+                  <input type="number" class="form-control" value="" name="item_no" required id="item_no" placeholder="Item Number" />
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Old Stock Cost Price <small>(per product)</small></label>
-                  <input type="number" class="form-control" value="<?php  if(isset($_POST['populate']) && $_POST['populate']=='populate'){ echo @$array['os_cprice'] ;}?>" name="cprice" required id="os_cprice" placeholder="Cost Price Per Item">
+                  <input type="number" name="cprice"  class="form-control"  value="<?php  if(isset($_POST['populate']) && $_POST['populate']=='populate'){ echo @$array['os_cprice'] ;}?>"  required id="os_cprice" placeholder="Cost Price Per Item">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Old Stock Retail product</label>
-                  <input type="number" class="form-control" name="rprice" value="<?php  if(isset($_POST['populate']) && $_POST['populate']=='populate'){ echo @$array['os_rprice'] ;}?>" required id="os_rprice" placeholder="Retail Price Per Item">
+                  <input type="number" class="form-control" name="rprice" readonly value="<?php  if(isset($_POST['populate']) && $_POST['populate']=='populate'){ echo @$array['os_rprice'] ;}?>" required id="os_rprice" placeholder="Retail Price Per Item">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">New Stock</label>
@@ -216,11 +221,11 @@ include('connection.php');?>
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">New Stock Cost Price <small>(per product)</small></label>
-                  <input type="number" class="form-control" name="ncprice" value="<?php if(isset($_POST['populate']) && $_POST['populate']=='populate'){  echo @$array['ns_cprice'] ;}?>" required id="ns_cprice" placeholder="Cost Price Per Item">
+                  <input type="number" class="form-control" name="ncprice" readonly value="<?php if(isset($_POST['populate']) && $_POST['populate']=='populate'){  echo @$array['ns_cprice'] ;}?>" required id="ns_cprice" placeholder="Cost Price Per Item">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">New Stock Retail product</label>
-                  <input type="number" class="form-control" name="nrprice" value="<?php if(isset($_POST['populate']) && $_POST['populate']=='populate'){ echo @$array['ns_rprice'] ;}?>" required id="ns_rprice" placeholder="Retail Price Per Item">
+                  <input type="number" class="form-control" name="nrprice" readonly value="<?php if(isset($_POST['populate']) && $_POST['populate']=='populate'){ echo @$array['ns_rprice'] ;}?>" required id="ns_rprice" placeholder="Retail Price Per Item">
                 </div>
               </div>
               <div class="box-footer">
