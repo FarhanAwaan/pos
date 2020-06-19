@@ -201,11 +201,11 @@ include('connection.php');?>
         nrprice(New Stock Retail product) -->
                 <div class="form-group">
                   <label for="exampleInputPassword1">Current Stock</label>
-                  <input type="number" class="form-control" value="<?php  if(isset($_POST['populate']) && $_POST['populate']=='populate'){ echo @$array['ostock'] ;}?>" name="qty" required id="ostock" placeholder="Quantaty">
+                  <input type="number" class="form-control" value="<?php  if(isset($_POST['populate']) && $_POST['populate']=='populate'){ echo @$array['ostock'] ;}?>" name="qty" required id="ostock" placeholder="Quantity">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Returned Item Number</label>
-                  <input type="number" class="form-control" value="" name="item_no" required id="item_no" placeholder="Item Number" />
+                  <input type="text" class="form-control" value="" name="item_no" required id="item_no" placeholder="Item Number" />
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Old Stock Cost Price <small>(per product)</small></label>
@@ -217,7 +217,7 @@ include('connection.php');?>
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">New Stock</label>
-                  <input type="number" class="form-control" name="nqty" readonly value="<?php  if(isset($_POST['populate']) && $_POST['populate']=='populate'){ echo @$array['nstock'] ;}?>" required id="nstock" placeholder="Quantaty">
+                  <input type="number" class="form-control" name="nqty" readonly value="<?php  if(isset($_POST['populate']) && $_POST['populate']=='populate'){ echo @$array['nstock'] ;}?>" required id="nstock" placeholder="Quantity">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">New Stock Cost Price <small>(per product)</small></label>

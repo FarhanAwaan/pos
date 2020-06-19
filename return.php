@@ -46,6 +46,7 @@ include('connection.php');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1> Rerutns </h1>
+     
       <ol class="breadcrumb">
         <li><a href="#"><i class="fas fa-tachometer-alt"></i> Home</a></li>
         <li><a href="#">Rerutn from customer</a></li>
@@ -59,6 +60,9 @@ include('connection.php');
           <!-- /.box -->
           <div class="box">
             <div class="box-header">
+            <div class="box-tools">
+           <button class="btn btn-primary" onclick="window.location.href= 'addreturns.php'">Add Returns</button>
+         </div>
               <h3 class="box-title">Rerutns to Vendor</h3>
             </div>
             <!-- /.box-header -->
@@ -75,15 +79,15 @@ include('connection.php');
                     <th style="width: 70px;"> Address</th>
                     <th style="width: 70px;"> Old Stock</th>
                     <th style="width: 70px;"> New Stock</th>
-                    <th style="width: 70px;"> Number1</th>
-                    <th style="width: 70px;"> Number2</th>
+                    <th style="width: 70px;"> Number1 | Number2</th>
+                    <th style="width: 70px;"> Total Stock</th>
                     <th style="width: 70px;"> Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   <?php 			  
                            $sql = "SELECT r.*,it.name as itemname,it.old_stock as old_stock,
-                                                it.new_stock as new_stock,
+                                                it.new_stock as new_stock,it.total_stock as total_stock,
                                                 vr.id as vid,vr.name as vname,vr.shop_name as shop,
                                                 vr.date as dt,vr.address as addre,vr.number1 as num1,vr.number2 as num2,
                                                 cm.id,cm.name,cm.shop_name,
@@ -110,10 +114,11 @@ include('connection.php');
                   $itemname = $row['itemname'];
                   $old_stock = $row['old_stock'];
                   $new_stock = $row['new_stock'];
-                  $itemname = $row['itemname'];
+                  $total_stock = $row['total_stock'];
+                 $itemname = $row['itemname'];
                   $returnee = $row['returnee'];
 									$shop_name = $row['shop'];
-									$date = $row['dt'];
+									$date = $row['created_date'];
 									$address = $row['addre'];
 									$number1 = $row['num1'];
 									$number2 = $row['num2'];
@@ -128,8 +133,8 @@ include('connection.php');
                     <td><?php echo $address;?></td>
                     <td><?php echo $old_stock;?></td>
                     <td><?php echo $new_stock;?></td>
-                    <td><?php echo $number1;?></td>
-                    <td ><?php echo $number2;?></td>
+                    <td><?php echo $number1;?> | <?php echo $number2;?></td>
+                    <td ><?php echo $total_stock;?></td>
                     <td><?php //if ($_SESSION['role'] == 'admin') { ?>
                       <div style="display: inline-flex;" role="group">
                         <form action="editreturns.php" method="POST">
@@ -156,6 +161,9 @@ include('connection.php');
           <div class="box box-primary">
             <div class="box-header with-border">
               <h4 class="box-title">Returns from Customer</h4>
+              <div class="box-tools">
+                 <button class="btn btn-primary" onclick="window.location.href= 'addreturns.php'">Add Returns</button>
+               </div>
             </div>
             <table id="customer" class="table table-bordered table-hover table-striped">
               <thead>
@@ -170,15 +178,15 @@ include('connection.php');
                   <th style="width: 70px;"> Address</th>
                   <th style="width: 70px;"> Old Stock</th>
                   <th style="width: 70px;"> New Stock</th>
-                  <th style="width: 70px;"> Number1</th>
-                  <th style="width: 70px;"> Number2</th>
+                  <th style="width: 70px;"> Number1|Number2</th>
+                  <th style="width: 70px;">Total Stock </th>
                   <th style="width: 70px;"> Action</th>
                 </tr>
               </thead>
               <tbody>
                 <?php 		
                 	  $sql = "SELECT r.*,it.name as itemname,it.old_stock as old_stock,
-                                            it.new_stock as new_stock,
+                                            it.new_stock as new_stock,it.total_stock as total_stock,
                                             vr.id as vid,vr.name as vname,vr.shop_name as shop,
                                             vr.date as dt,vr.address as addre,vr.number1 as num1,vr.number2 as num2,
                                             cm.id,cm.name,cm.shop_name,
@@ -205,9 +213,10 @@ include('connection.php');
                   $name = $row['name'];
                   $itemname = $row['itemname'];
                   $old_stock = $row['old_stock'];
-                  $new_stock = $row['new_stock'];
+                  $old_stock = $row['old_stock'];
+                  $total_stock = $row['total_stock'];
 									$shop_name = $row['shop_name'];
-									$date = $row['date'];
+									$date = $row['created_date'];
 									$address = $row['address'];
 									$number1 = $row['number1'];
 									$number2 = $row['number2'];
@@ -224,8 +233,8 @@ include('connection.php');
                   <td><?php echo $address;?></td>
                   <td><?php echo $old_stock;?></td>
                   <td><?php echo $new_stock;?></td>
-                  <td><?php echo $number1;?></td>
-                  <td ><?php echo $number2;?></td>
+                  <td><?php echo $number1;?> | <?php echo $number2;?></td>
+                  <td><?php echo $total_stock;?></td>
                   <td><?php //if ($_SESSION['role'] == 'admin') { ?>
                     <div style="display: inline-flex;" role="group">
                       <form action="editreturns.php" method="POST">
@@ -239,8 +248,7 @@ include('connection.php');
                     </div>
                   </td>
                 </tr>
-                <?php     }
-								  } ?>
+                <?php  } } ?>
               </tbody>
             </table>
           </div>

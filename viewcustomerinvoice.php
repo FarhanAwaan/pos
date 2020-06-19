@@ -3,7 +3,7 @@
 include('connection.php'); 
 if(isset($_POST['viewinvoice']))
 {
-    $id=$_POST['action_id'];
+    $id=@$_POST['action_id'];
     $date=$_POST['date'];
     $name=$_POST['customer_name'];
     $invoice_no=$_POST['invoice_no'];

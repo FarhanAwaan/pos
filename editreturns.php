@@ -140,10 +140,12 @@ if(isset($_POST['action_id']))
               <div class="box-body">
 			  			 <div class="form-group">
                   <label for="exampleInputEmail1">Items</label>
+                  <?php echo "<br/>".$returnitemid;?>
                   <select required name="returnitemid" class="selectpicker">
                     <?php
                     
-                                                $sql = "SELECT * FROM `items` where id=".$returnitemid." ";
+                    
+                                                $sql = "SELECT * FROM `items`  ";
                                                 $result = $conn->query($sql);
                                                 if ($result->num_rows > 0)
                                                 {
@@ -151,6 +153,8 @@ if(isset($_POST['action_id']))
                                                     {
                                                     $itemid = $row['id'];
                                                     $name = $row['name'];
+                                                   
+                                                    
                                             ?>
                     <option value="<?php echo $itemid; ?>" <?php if($itemid==$returnitemid) echo 'selected="selected"'; ?>><?php echo $name; ?></option>
                     <?php }} ?>
@@ -163,12 +167,12 @@ if(isset($_POST['action_id']))
                     <option value="vendor" <?php if($returnee=='vendor') echo 'selected="selected"'; ?>><?php echo 'vendor'; ?></option>
                   </select>
                 </div>
-                <div class="form-group" id="customer" style="display:none">
+                <div class="form-group" id="customer">
                   <label for="exampleInputEmail1">Customer</label>
                   <select required name="customer" class="selectpicker">
                     <?php
                     
-                                                $sql = "SELECT * FROM `customer` where id=".$cid." ";
+                                                $sql = "SELECT * FROM `customer`";
                                                 $result = $conn->query($sql);
                                                 if ($result->num_rows > 0)
                                                 {
@@ -218,7 +222,7 @@ if(isset($_POST['action_id']))
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Returned Item Number</label>
-                  <input type="number" class="form-control" value="<?php echo $item_no ;?>" name="item_no" required id="item_no" placeholder="Item Number" />
+                  <input type="text" class="form-control" value="<?php echo $item_no ;?>" name="item_no" required id="item_no" placeholder="Item Number" />
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Old Stock Cost Price <small>(per product)</small></label>
