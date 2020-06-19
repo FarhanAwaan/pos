@@ -793,7 +793,7 @@ if(isset($_POST['signin']))
         $date = date('d-m-Y');
        
         if(isset($_POST['edit_returns'])){
-        echo    $sql2="UPDATE `returns` SET `title`='$title',`returnitemid`='$itemid',
+            $sql2="UPDATE `returns` SET `title`='$title',`returnitemid`='$itemid',
                     `cid`='$cid',`vid`='$vid',`returnee`='$returnee' ,`item_no`='$item_no' ,`qty`='$qty' WHERE `returnid` ='$id'";
             $result = $conn->query($sql);
         
@@ -805,7 +805,7 @@ if(isset($_POST['signin']))
                 $result = $conn->query($sql);
            
             }
-            exit;
+           
      //  print_r($_POST);
       
         $sql1 = "select * from items where id = '$itemid'";
