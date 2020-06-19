@@ -93,18 +93,19 @@ include('connection.php');?>
               <div class="box-body">
 			  	<div class="form-group">
                   <label for="exampleInputEmail1">Items</label>
-                  <select required name="returnitemid" id="itemid" class="selectpicker" onBlur="var item = $('#itemid').val();populatefields(item)">
+                  <select required name="returnitemid" id="itemid" class="selectpicker" onChange="var item = $('#itemid').val();populatefields(item)">
+                    <option value="" disabled selected>-Select- </option>
                     <?php
                     
-                                                $sql = "SELECT * FROM `items`  ";
-                                                $result = $conn->query($sql);
-                                                if ($result->num_rows > 0)
-                                                {
-                                                    while($row = mysqli_fetch_assoc($result))
-                                                    {
-                                                    $itemid = $row['id'];
-                                                    $name = $row['name'];
-                                            ?>
+                        $sql = "SELECT * FROM `items`  ";
+                        $result = $conn->query($sql);
+                        if ($result->num_rows > 0)
+                        {
+                            while($row = mysqli_fetch_assoc($result))
+                            {
+                            $itemid = $row['id'];
+                            $name = $row['name'];
+                    ?>
                     <option value="<?php echo $itemid; ?>" ><?php echo $name; ?></option>
                     <?php }} ?>
                   </select>
@@ -141,7 +142,8 @@ include('connection.php');?>
 				</script>
                 <div class="form-group">
                   <label for="exampleInputEmail1">Returnee</label>
-                  <select required name="returnee" class="selectpicker" onBlur="hideother(this.value);">
+                  <select required name="returnee" class="selectpicker" onChange="hideother(this.value);">
+                    <option value="" disabled selected>-Select-</option>
                     <option value="customer"><?php echo 'customer'; ?></option>
                     <option value="vendor"><?php echo 'vendor'; ?></option>
                   </select>
@@ -151,15 +153,15 @@ include('connection.php');?>
                   <select required name="customer" class="selectpicker">
                     <?php
                     
-                                                $sql = "SELECT * FROM `customer`  ";
-                                                $result = $conn->query($sql);
-                                                if ($result->num_rows > 0)
-                                                {
-                                                    while($row = mysqli_fetch_assoc($result))
-                                                    {
-                                                    $customerid = $row['id'];
-                                                    $name = $row['name'];
-                                            ?>
+                          $sql = "SELECT * FROM `customer`  ";
+                          $result = $conn->query($sql);
+                          if ($result->num_rows > 0)
+                          {
+                              while($row = mysqli_fetch_assoc($result))
+                              {
+                              $customerid = $row['id'];
+                              $name = $row['name'];
+                      ?>
                     <option value="<?php echo $customerid; ?>" ><?php echo $name; ?></option>
                     <?php }} ?>
                   </select>
@@ -170,15 +172,15 @@ include('connection.php');?>
                   <select required name="vendor" class="selectpicker">
                     <?php
                     
-                                                $sql = "SELECT * FROM `vendor`";
-                                                $result = $conn->query($sql);
-                                                if ($result->num_rows > 0)
-                                                {
-                                                    while($row = mysqli_fetch_assoc($result))
-                                                    {
-                                                    $vendorid = $row['id'];
-                                                    $name = $row['name'];
-                                            ?>
+                          $sql = "SELECT * FROM `vendor`";
+                          $result = $conn->query($sql);
+                          if ($result->num_rows > 0)
+                          {
+                              while($row = mysqli_fetch_assoc($result))
+                              {
+                              $vendorid = $row['id'];
+                              $name = $row['name'];
+                      ?>
                     <option value="<?php echo $vendorid; ?>"><?php echo $name; ?></option>
                     <?php }} ?>
                   </select>
@@ -195,7 +197,8 @@ include('connection.php');?>
 						$('#vendor').css('display','block');
 						$('#customer').hide();
 					}
-				}</script>
+				}
+      </script>
 				 
         <!-- title returnitemid customer vendor qty(old stock) cprice(old stock) nqty(New Stock) ncprice(New Stock Cost Price)
         nrprice(New Stock Retail product) -->

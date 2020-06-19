@@ -61,47 +61,45 @@ include('connection.php');
           <div class="box">
             <div class="box-header">
             <div class="box-tools">
-           <button class="btn btn-primary" onclick="window.location.href= 'addreturns.php'">Add Returns</button>
+           <button style="display: none;" class="btn btn-primary" onclick="window.location.href= 'addreturns.php'">Add Returns</button>
          </div>
               <h3 class="box-title">Rerutns to Vendor</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="customer" class="table table-bordered table-hover table-striped">
+              <table id="vendorTable" class="table table-bordered table-hover table-striped">
                 <thead>
                   <tr>
-                    <th style="width: 40px;"> Rerutns No.#</th>
+                    <th>Rerutns No.#</th>
                     <th>Vendor Name</th>
                     <th>Item Name</th>
-                    <th> Returnee</th>
-                    <th> Shop Name</th>
-                    <th style="width: 70px;"> Date</th>
-                    <th style="width: 70px;"> Address</th>
-                    <th style="width: 70px;"> Old Stock</th>
-                    <th style="width: 70px;"> New Stock</th>
-                    <th style="width: 70px;"> Number1 | Number2</th>
-                    <th style="width: 70px;"> Total Stock</th>
-                    <th style="width: 70px;"> Action</th>
+                    <th>Shop Name</th>
+                    <th>Date</th>
+                    <th>Address</th>
+                    <th>Old Stock</th>
+                    <th>New Stock</th>
+                    <th>Total Stock</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   <?php 			  
-                           $sql = "SELECT r.*,it.name as itemname,it.old_stock as old_stock,
-                                                it.new_stock as new_stock,it.total_stock as total_stock,
-                                                vr.id as vid,vr.name as vname,vr.shop_name as shop,
-                                                vr.date as dt,vr.address as addre,vr.number1 as num1,vr.number2 as num2,
-                                                cm.id,cm.name,cm.shop_name,
-                                                cm.pending_amount as cpam,cm.date,cm.address,cm.number1,cm.number2
-                                    from `returns` r 
-                                      left join customer cm 
-                                        on 
-                                      r.cid = cm.id
-                                      left join items it 
-                                        on 
-                                      r.returnitemid = it.id
-                                      left join vendor vr 
-                                        on 
-                                      r.vid = vr.id where r.returnee='vendor' ";
+                     $sql = "SELECT r.*,it.name as itemname,it.old_stock as old_stock,
+                                          it.new_stock as new_stock,it.total_stock as total_stock,
+                                          vr.id as vid,vr.name as vname,vr.shop_name as shop,
+                                          vr.date as dt,vr.address as addre,vr.number1 as num1,vr.number2 as num2,
+                                          cm.id,cm.name,cm.shop_name,
+                                          cm.pending_amount as cpam,cm.date,cm.address,cm.number1,cm.number2
+                              from `returns` r 
+                                left join customer cm 
+                                  on 
+                                r.cid = cm.id
+                                left join items it 
+                                  on 
+                                r.returnitemid = it.id
+                                left join vendor vr 
+                                  on 
+                                r.vid = vr.id where r.returnee='vendor' ";
 							$result = $conn->query($sql);
 							//print_r($row = mysqli_fetch_assoc($result));
 							if ($result->num_rows > 0)
@@ -116,24 +114,22 @@ include('connection.php');
                   $new_stock = $row['new_stock'];
                   $total_stock = $row['total_stock'];
                  $itemname = $row['itemname'];
-                  $returnee = $row['returnee'];
 									$shop_name = $row['shop'];
 									$date = $row['created_date'];
 									$address = $row['addre'];
-									$number1 = $row['num1'];
-									$number2 = $row['num2'];
+									// $number1 = $row['num1'];
+									// $number2 = $row['num2'];
 							    ?>
                   <tr>
                     <td><?php echo $id;?></td>
                     <td><?php echo $name;?></td>
                     <td><?php echo $itemname;?></td>
-                    <td><?php echo $returnee;?></td>
                     <td><?php echo $shop_name;?></td>
                     <td><?php echo $date;?></td>
                     <td><?php echo $address;?></td>
                     <td><?php echo $old_stock;?></td>
                     <td><?php echo $new_stock;?></td>
-                    <td><?php echo $number1;?> | <?php echo $number2;?></td>
+                    <!-- <td><?php //echo $number1;?> | <?php //echo $number2;?></td> -->
                     <td ><?php echo $total_stock;?></td>
                     <td><?php //if ($_SESSION['role'] == 'admin') { ?>
                       <div style="display: inline-flex;" role="group">
@@ -162,25 +158,23 @@ include('connection.php');
             <div class="box-header with-border">
               <h4 class="box-title">Returns from Customer</h4>
               <div class="box-tools">
-                 <button class="btn btn-primary" onclick="window.location.href= 'addreturns.php'">Add Returns</button>
+                 <button style="display: none;" class="btn btn-primary" onclick="window.location.href= 'addreturns.php'">Add Returns</button>
                </div>
             </div>
             <table id="customer" class="table table-bordered table-hover table-striped">
               <thead>
                 <tr>
-                  <th style="width: 40px;"> Rerutns No.#</th>
+                  <th> Rerutns No.#</th>
                   <th> Customer Name</th>
                   <th>Item Name</th>
-                  <th>Retrunee</th>
                   <th> Shop Name</th>
                   <th> Pending Amount</th>
-                  <th style="width: 70px;"> Date</th>
-                  <th style="width: 70px;"> Address</th>
-                  <th style="width: 70px;"> Old Stock</th>
-                  <th style="width: 70px;"> New Stock</th>
-                  <th style="width: 70px;"> Number1|Number2</th>
-                  <th style="width: 70px;">Total Stock </th>
-                  <th style="width: 70px;"> Action</th>
+                  <th> Date</th>
+                  <th> Address</th>
+                  <th> Old Stock</th>
+                  <th> New Stock</th>
+                  <th>Total Stock </th>
+                  <th> Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -208,7 +202,6 @@ include('connection.php');
 								while($row = mysqli_fetch_assoc($result))
 								{
                   $returnid = $row['returnid'];
-                  $returnee = $row['returnee'];
 									$id = $row['id'];
                   $name = $row['name'];
                   $itemname = $row['itemname'];
@@ -218,22 +211,21 @@ include('connection.php');
 									$shop_name = $row['shop_name'];
 									$date = $row['created_date'];
 									$address = $row['address'];
-									$number1 = $row['number1'];
-									$number2 = $row['number2'];
+									// $number1 = $row['number1'];
+									// $number2 = $row['number2'];
 									$pending_amount= $row['cpam'];
              ?>
                 <tr>
                   <td><?php echo $id;?></td>
                   <td><?php echo $name;?></td>
                   <td><?php echo $itemname;?></td>
-                  <td><?php echo $returnee;?></td>
                   <td><?php echo $shop_name;?></td>
                   <td><?php echo $pending_amount;?></td>
                   <td><?php echo $date;?></td>
                   <td><?php echo $address;?></td>
                   <td><?php echo $old_stock;?></td>
                   <td><?php echo $new_stock;?></td>
-                  <td><?php echo $number1;?> | <?php echo $number2;?></td>
+                  <!-- <td><?php //echo $number1;?> | <?php //echo $number2;?></td> -->
                   <td><?php echo $total_stock;?></td>
                   <td><?php //if ($_SESSION['role'] == 'admin') { ?>
                     <div style="display: inline-flex;" role="group">
@@ -272,8 +264,7 @@ include('connection.php');
 <script src="js/bootstrap.min.js"></script>
 <script src="js/select2.full.min.js"></script>
 <!-- DataTables -->
-<script src="js/jquery.dataTables.min.js"></script>
-<script src="js/dataTables.bootstrap.min.js"></script>
+<script src="plugins/datatables/jquery.dataTables.js" deferred></script>
 <!-- SlimScroll -->
 <script src="js/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
@@ -284,14 +275,32 @@ include('connection.php');
 <script src="js/demo.js"></script>
 <script src="js/toastr.min.js"></script>
 <script src="js/script.js"></script>
+
+
 <!-- page script -->
 <script>
 
         $(function () {
-  $('[data-toggle="tooltip"]').tooltip()
-});
-    </script>
-<script>
+          $('[data-toggle="tooltip"]').tooltip()
+        });
+
+
+        $("#vendorTable").DataTable({
+            'paging': true,
+            'lengthChange': false,
+            'searching': false,
+            'ordering': false,
+            'info': true,
+            'autoWidth': false
+          });
+        $("#customer").DataTable({
+            'paging': true,
+            'lengthChange': false,
+            'searching': false,
+            'ordering': false,
+            'info': true,
+            'autoWidth': false
+          });
 	    <?php 
 	        if(isset($_GET['success']))
 	        {

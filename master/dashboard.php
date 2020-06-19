@@ -120,10 +120,9 @@
             </span>
           </a>
                 <ul class="treeview-menu">
+                    <li><a href="viewreturnsreports.php"><i class="far fa-circle"></i>&nbsp;&nbsp; Add Returns</a></li>
                     <li><a href="return.php"><i class="far fa-circle"></i>&nbsp;&nbsp; Returns listings</a></li>
-                    <li><a href="addreturns.php"><i class="far fa-circle"></i>&nbsp;&nbsp; Return to Vendor</a></li>
-                    <li><a href="addreturns.php"><i class="far fa-circle"></i>&nbsp;&nbsp; Return from Customer</a></li>
-                    <li><a href="viewreturnsreports.php"><i class="far fa-circle"></i>&nbsp;&nbsp; View Return Report</a></li>
+                    <!-- <li><a href="viewreturnsreports.php"><i class="far fa-circle"></i>&nbsp;&nbsp; View Return Report</a></li> -->
                 </ul>
             </li>
             <li class="treeview">

@@ -318,6 +318,7 @@ include('connection.php');
                                         <?php
                                         if (count($saleToday['retail_sell']) != 0)
                                         {
+
                                             foreach ($saleToday['retail_sell'] as $vendor_sales) {
                                                 echo '<tr>';
                                                 echo '<td>'.$vendor_sales['date'].'</td>';
