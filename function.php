@@ -1,5 +1,5 @@
 <?php
-    session_start();
+//    session_start();
     include('connection.php');
     include('master/session.php');
     // ini_set('display_errors', 1);
@@ -794,7 +794,8 @@ if(isset($_POST['signin']))
        
         if(isset($_POST['edit_returns'])){
             $sql2="UPDATE `returns` SET `title`='$title',`returnitemid`='$itemid',
-                    `cid`='$cid',`vid`='$vid',`returnee`='$returnee' ,`item_no`='$item_no' ,`qty`='$qty' WHERE `returnid` ='$id'";
+                    `cid`='$cid',`vid`='$vid',`returnee`='$returnee' ,`item_no`='$item_no' ,`qty`='$qty' 
+                    WHERE `returnid` ='$id'";
             $result = $conn->query($sql);
         
         }else{

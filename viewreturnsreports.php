@@ -52,7 +52,7 @@ include('connection.php');
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
-                    Financial Reports
+                    Returns Reports
                 </h1>
                 <ol class="breadcrumb">
                     <li><a href="#"><i class="fas fa-tachometer-alt"></i> Home</a></li>
@@ -255,7 +255,7 @@ include('connection.php');
                                             <th>Price</th>
                                             <th>Quantity</th>
                                             <th>Discount</th>
-                                            <th>Total</th>
+                                            
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -280,8 +280,8 @@ include('connection.php');
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <th colspan="5" style="text-align:right">PKR</th>
-                                            <th id="labourTotalSales" style="text-align:left"></th>
+                                            <!-- <th colspan="5" style="text-align:right">PKR</th>
+                                            <th id="labourTotalSales" style="text-align:left"></th> -->
                                         </tr>
                                     </tfoot>
                                 </table>
