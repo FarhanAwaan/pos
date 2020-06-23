@@ -140,29 +140,27 @@ if(isset($_POST['action_id']))
               <div class="box-body">
 			  			 <div class="form-group">
                   <label for="exampleInputEmail1">Items</label>
-                  <?php echo "<br/>".$returnitemid;?>
+                  <!-- <?php //echo "<br/>".$returnitemid;?> -->
                   <select required name="returnitemid" class="selectpicker">
                     <?php
-                    
-                    
-                                                $sql = "SELECT * FROM `items`  ";
-                                                $result = $conn->query($sql);
-                                                if ($result->num_rows > 0)
-                                                {
-                                                    while($row = mysqli_fetch_assoc($result))
-                                                    {
-                                                    $itemid = $row['id'];
-                                                    $name = $row['name'];
+                          $sql = "SELECT * FROM `items`  ";
+                          $result = $conn->query($sql);
+                          if ($result->num_rows > 0)
+                          {
+                              while($row = mysqli_fetch_assoc($result))
+                              {
+                              $itemid = $row['id'];
+                              $name = $row['name'];
                                                    
                                                     
-                                            ?>
+                      ?>
                     <option value="<?php echo $itemid; ?>" <?php if($itemid==$returnitemid) echo 'selected="selected"'; ?>><?php echo $name; ?></option>
                     <?php }} ?>
                   </select>
                 </div>
                 <div class="form-group">
                   <label for="exampleInputEmail1">Returnee</label>
-                  <select required name="returnee" class="selectpicker" onBlur="hideother(this.value);">
+                  <select required name="returnee" class="selectpicker">
                     <option value="customer" <?php if($returnee=='customer') echo 'selected="selected"'; ?>><?php echo 'customer'; ?></option>
                     <option value="vendor" <?php if($returnee=='vendor') echo 'selected="selected"'; ?>><?php echo 'vendor'; ?></option>
                   </select>
@@ -172,16 +170,23 @@ if(isset($_POST['action_id']))
                   <select required name="customer" class="selectpicker">
                     <?php
                     
-                                                $sql = "SELECT * FROM `customer`";
-                                                $result = $conn->query($sql);
-                                                if ($result->num_rows > 0)
-                                                {
-                                                    while($row = mysqli_fetch_assoc($result))
-                                                    {
-                                                    $customerid = $row['id'];
-                                                    $name = $row['name'];
-                                                                           ?>
-                    <option value="<?php echo $customerid; ?>" <?php if($cid==$customerid) echo 'selected="selected"'; ?>><?php echo $name; ?></option>
+                        $sql = "SELECT * FROM `customer`";
+                        $result = $conn->query($sql);
+                        if ($result->num_rows > 0)
+                        {
+                            while($vrow = mysqli_fetch_assoc($result))
+                            {
+                              $customerid = $vrow['id'];
+                              $vname = $vrow['name'];
+                            ?>
+                    <option value="<?php echo $customerid; ?>"
+                        <?php if($cid==$customerid)
+                        echo 'selected="selected"';
+                        ?>
+                      >
+                      <?php echo $vname; ?>
+                          
+                    </option>
                     <?php }} ?>
                   </select>
                 </div>
@@ -190,32 +195,19 @@ if(isset($_POST['action_id']))
                   <select required name="vendor" class="selectpicker">
                     <?php
                     
-                                                $sql = "SELECT * FROM `vendor` where id=".$vid."";
-                                                $result = $conn->query($sql);
-                                                if ($result->num_rows > 0)
-                                                {
-                                                    while($row = mysqli_fetch_assoc($result))
-                                                    {
-                                                    $vendorid = $row['id'];
-                                                    $name = $row['name'];
-                                            ?>
+                          $sql = "SELECT * FROM `vendor` where id=".$vid."";
+                          $result = $conn->query($sql);
+                          if ($result->num_rows > 0)
+                          {
+                              while($row = mysqli_fetch_assoc($result))
+                              {
+                              $vendorid = $row['id'];
+                              $name = $row['name'];
+                      ?>
                     <option value="<?php echo $vendorid; ?>" <?php if($vid==$vendorid) echo 'selected="selected"'; ?>><?php echo $name; ?></option>
                     <?php }} ?>
                   </select>
                 </div>
-					<script>
-				function hideother(val){
-				//alert(val);
-					if(val=='customer'){
-						
-						$('#customer').css('display','block');
-						$('#vendor').hide();
-					}
-					if(val=='vendor'){
-						$('#vendor').css('display','block');
-						$('#customer').hide();
-					}
-				}</script>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Current Stock</label>
                   <input type="number" class="form-control" readonly value="<?php echo $ostock ;?>"  name="qty" required id="wire_used" placeholder="Quantaty">
@@ -280,7 +272,27 @@ if(isset($_POST['action_id']))
 <!-- AdminLTE for demo purposes -->
 <script src="js/demo.js"></script>
 <script src="js/toastr.min.js"></script>
+
 <script>
+        // function hideother(val){
+        //alert(val);
+        function getVal(){
+
+        var defaultVal =  $("select[name='returnee']").val();
+        // alert(defaultVal);
+          if(defaultVal=='customer'){
+            
+            $('#customer').css('display','block');
+            $('#vendor').hide();
+          }
+          if(defaultVal=='vendor'){
+            $('#vendor').css('display','block');
+            $('#customer').hide();
+          }
+        }
+        getVal();
+        // }
+
 	    <?php 
 	        if(isset($_GET['success']))
 	        {
