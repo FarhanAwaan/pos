@@ -218,10 +218,10 @@ if(isset($_POST['action_id']))
 				}</script>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Current Stock</label>
-                  <input type="number" class="form-control" value="<?php echo $ostock ;?>"  name="qty" required id="wire_used" placeholder="Quantaty">
+                  <input type="number" class="form-control" readonly value="<?php echo $ostock ;?>"  name="qty" required id="wire_used" placeholder="Quantaty">
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputPassword1">Returned Item Number</label>
+                  <label for="exampleInputPassword1">Number of Items returned</label>
                   <input type="text" class="form-control" value="<?php echo $item_no ;?>" name="item_no" required id="item_no" placeholder="Item Number" />
                 </div>
                 <div class="form-group">

@@ -201,10 +201,10 @@ include('connection.php');?>
         nrprice(New Stock Retail product) -->
                 <div class="form-group">
                   <label for="exampleInputPassword1">Current Stock</label>
-                  <input type="number" class="form-control" value="<?php  if(isset($_POST['populate']) && $_POST['populate']=='populate'){ echo @$array['ostock'] ;}?>" name="qty" required id="ostock" placeholder="Quantity">
+                  <input type="number" class="form-control" readonly value="<?php  if(isset($_POST['populate']) && $_POST['populate']=='populate'){ echo @$array['ostock'] ;}?>" name="qty" required id="ostock" placeholder="Quantity">
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputPassword1">Returned Item Number</label>
+                  <label for="exampleInputPassword1">Number of Items returned</label>
                   <input type="text" class="form-control" value="" name="item_no" required id="item_no" placeholder="Item Number" />
                 </div>
                 <div class="form-group">
