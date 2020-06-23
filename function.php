@@ -788,8 +788,23 @@ if(isset($_POST['signin']))
         $ncprice = isset($_POST['ncprice'])?$_POST['ncprice']:0;         //ncprice(New Stock Cost Price)
         $nqty = isset($_POST['nqty'])?$_POST['nqty']:0;              // (New Stock) quantity
         $rprice = isset($_POST['rprice'])?$_POST['rprice']:0;           //retail price(old stock)
-        $cprice = isset($_POST['cprice'])?$_POST['cprice']:0;           //cost price(old stock)
-      	 		 
+         //echo "ncprice posted".$ncprice."<br/>";
+        
+        if($returnee=='customer')    {
+           $qty = $qty + $item_no;
+            if( $qty==0 || $qty<$item_no ){
+             $qty = $item_no; 
+            }else{
+                $qty = $qty + $item_no; 
+            }
+        }elseif($returnee=='vendor'){
+            if( $qty==0 || $qty<$item_no ){
+                $qty = $item_no; 
+            }else{
+                $qty = $qty - $item_no; 
+            }
+        }  	
+        
         $date = date('d-m-Y');
        
         if(isset($_POST['edit_returns'])){
@@ -821,11 +836,13 @@ if(isset($_POST['signin']))
                 $nstock = $row['new_stock'];
                 $ns_cprice = $row['new_stock_cprice'];
                 $ns_rprice = $row['new_stoct_price'];
+                
             }
            
             if($ostock == 0)
             {
-              //  echo "<br/> in 1";
+              //  echo "debugged";
+             // echo "<br/> in 1";
                 $sql2="UPDATE 
                             `items` 
                                 SET `old_stock`='$qty',`old_stoct_price`='$rprice',`total_stock`='$qty',
@@ -835,18 +852,24 @@ if(isset($_POST['signin']))
             }
             else if($os_cprice == $cprice && $os_rprice == $rprice)
             {
-               // echo "<br/> in 2";
-                $sstock=($ostock+$qty);
+                //echo "debugged";
+                //echo $os_cprice ."==". $cprice.'&&' .$os_rprice ."==". $rprice."<br/>";
+
+              //  echo "<br/> in 2";
+                 //echo "<br/>ostock ".$ostock;
+                 //echo "<br/> qty".$qty;
+                $sstock=$qty;
                   $sql2="UPDATE 
                             `items` 
-                                SET `old_stock`='$sstock',`old_stoct_price`='$rprice',`total_stock`=total_stock+$qty,
+                                SET `old_stock`='$sstock',`new_stock`='$item_no',`old_stoct_price`='$rprice',`total_stock`=total_stock+$qty,
                                 `old_stock_cprice`='$cprice' 
                             WHERE `id` ='$itemid'";
-                $result3 = $conn->query($sql2);            }
+                $result3 = $conn->query($sql2);     
+            }
             else if($nstock == 0)
             {
-              //  echo "<br/> in 3";
-                $sql2="UPDATE 
+             // echo "<br/> in 3";
+                 $sql2="UPDATE 
                             `items` 
                             SET `new_stock`='$qty',`new_stoct_price`='$rprice',`total_stock`=total_stock+$qty,
                             `new_stock_cprice`='$cprice' 
@@ -855,9 +878,9 @@ if(isset($_POST['signin']))
             }
             else if($ns_cprice == $cprice && $ns_rprice == $rprice)
             {
-              //  echo "<br/> in 4";
-                $sstock=($nstock+$qty);
-                 $sql2="UPDATE 
+              // echo "<br/> in 4";
+                $sstock=$qty;
+                  $sql2="UPDATE 
                             `items` 
                                 SET 
                                 `new_stock`='$sstock',`new_stoct_price`='$rprice',`total_stock`=total_stock+$qty,
@@ -867,19 +890,19 @@ if(isset($_POST['signin']))
             }
             else
             {
-               // echo "<br/> in 5";
+             // echo "<br/> in 5";
                  $sql2="UPDATE 
                             `items` 
                                     SET `total_stock`=total_stock+$qty 
                                 WHERE `id` ='$itemid'";
                 $result3 = $conn->query($sql2);
-                $sql3="INSERT 
+                 $sql3="INSERT 
                             INTO `stock`(`item_id`, `qty`, `cprice`, `rprice`, `date`) 
                         VALUES 
                                 ('$itemid','$qty','$cprice','$rprice','$date')";
                 $result3 = $conn->query($sql3); 
             }
-            //exit;
+           // exit;
          
              if($result>0)
            {
